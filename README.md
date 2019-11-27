@@ -6,9 +6,9 @@ This package contains base widgets that can be used to implement the MvvmStyle p
 
 The `ViewModelProvider` was first built in the [Provider Architecture Tutorial](https://youtu.be/kDEflMYTFlk) where it was titled BaseView. The `ViewModelProvider` is used to create the "binding" between a ViewModel and the View. There is no two-way binding in this architecture, which is why I don't want to say it's an Mvvm implementation. The `ViewModelProvider` wraps up all the `ChangeNotifierProvider` code which allows us to trigger a rebuild of a widget when calling `notifyListeners` within the ViewModel.
 
-A ViewModel is simply a dart class that extends `ChangeNotifier`. The `ViewModelProvider` has 2 constructors, one with a builder and one without a builder. The tutorial mentioned above emulates the default implementation which has been put into the `.withBuilder` named constructor. The `.withoutBuilder` constructor is for UI that does not require the model at the constructor level. The withoutBuilder construction was born in [this tutorial](https://youtu.be/HUSqk0OrR7I?t=224) where we wanted to reduce the boiler plate when the same data has to go to multiple widgets.
+A ViewModel is simply a dart class that extends `ChangeNotifier`. The `ViewModelProvider` has 2 constructors, one with a builder and one without a builder. The tutorial mentioned above emulates the default implementation which has been put into the `.withConsumer` named constructor. The `.withoutConsumer` constructor is for UI that does not require the model at the constructor level. The withoutConsumer construction was born in [this tutorial](https://youtu.be/HUSqk0OrR7I?t=224) where we wanted to reduce the boiler plate when the same data has to go to multiple widgets.
 
-### With Builder
+### With Consumer
 
 An example of this would be the traditional View-ViewModel setup we have.
 
@@ -59,9 +59,9 @@ class HomeViewModel extends ChangeNotifier {
 
 When `notifyListeners` is called in the ViewModel the builder is triggered allowing you to rebuild your UI with the new updated ViewModel state. The process here is you update your data then call `notifyListeners` and rebuild your UI.
 
-### Without Builder
+### Without Consumer
 
-The `.withoutBuilder` constructor is best used for providing your ViewModel to multiple children widgets. It was created to make it easier to build and provide the same ViewModel to multiple UI's. It was born out of my [Responsive UI architecture](https://youtu.be/HUSqk0OrR7I) where we would have to provide the same ViewModel to all the different responsive layouts. Here's a simple example.
+The `.withoutConsumer` constructor is best used for providing your ViewModel to multiple children widgets. It was created to make it easier to build and provide the same ViewModel to multiple UI's. It was born out of my [Responsive UI architecture](https://youtu.be/HUSqk0OrR7I) where we would have to provide the same ViewModel to all the different responsive layouts. Here's a simple example.
 
 ```dart
 // Viewmodel in the above code
