@@ -26,6 +26,7 @@ dependencies:
   provider_architecture:
     path: ../
   responsive_builder:
+  provider:
 
 dev_dependencies:
   flutter_test:
