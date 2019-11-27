@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [1.0.0] - Initial Release
 
-* TODO: Describe initial release.
+Added the widgets required to implement the FilledStacks architectures using Provider and the responsive_builder UI package.
