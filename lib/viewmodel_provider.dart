@@ -47,13 +47,13 @@ class _ViewModelProviderState<T extends ChangeNotifier>
   Widget build(BuildContext context) {
     if (widget.providerType == _ViewModelProviderType.WithoutConsumer) {
       return ChangeNotifierProvider(
-        builder: (context) => _model,
+        create: (context) => _model,
         child: widget.builder(context, _model, null),
       );
     }
 
     return ChangeNotifierProvider(
-      builder: (context) => _model,
+      create: (context) => _model,
       child: Consumer(
         builder: widget.builder,
         child: widget.staticChild,
