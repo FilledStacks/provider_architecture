@@ -1,5 +1,7 @@
 # Provider Architecture
 
+[![Pub](https://img.shields.io/pub/v/provider_architecture.svg)](https://pub.dev/packages/provider_architecture)
+
 This package contains base widgets that can be used to implement the MvvmStyle provider architecture as laid out by [FilledStacks](https://www.youtube.com/filledstacks).
 
 ## ViewModelProvider
@@ -206,4 +208,4 @@ class DuplicateNameWidget extends ProviderWidget<Human> {
 }
 ```
 
-The package do not implement the architecture for you but it definitely helps the implementation. 
+The package do not implement the architecture for you but it definitely helps the implementation.
