@@ -209,3 +209,24 @@ class DuplicateNameWidget extends ProviderWidget<Human> {
 ```
 
 The package do not implement the architecture for you but it definitely helps the implementation.
+
+### Non-updating Provider Widget
+
+Sometimes you want a widget to have access to the viewmodel but you don't want it to rebuild. In the case of a button that has to call a function on the viewmodel but uses none of the viewmodel state for the UI. In this case you can set the listen value to false for the super constructor of the `ProviderWidget`
+
+```dart
+class UpdateTitleButton extends ProviderWidget<HomeViewModel> {
+  UpdateTitleButton({
+    Key key,
+  }) : super(key: key, listen: false);
+
+  @override
+  Widget build(BuildContext context, model) {
+    return FloatingActionButton(
+      onPressed: () {
+        model.updateTitle();
+      },
+    );
+  }
+}
+```
