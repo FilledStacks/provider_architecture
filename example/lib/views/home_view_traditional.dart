@@ -12,15 +12,26 @@ class HomeViewTraditional extends StatelessWidget {
       viewModel: HomeViewModel(),
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) => Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            model.updateTitle();
-          },
-        ),
+        floatingActionButton: UpdateTitleButton(),
         body: Center(
           child: Text(model.title),
         ),
       ),
+    );
+  }
+}
+
+class UpdateTitleButton extends ProviderWidget<HomeViewModel> {
+  UpdateTitleButton({
+    Key key,
+  }) : super(key: key, listen: false);
+
+  @override
+  Widget build(BuildContext context, model) {
+    return FloatingActionButton(
+      onPressed: () {
+        model.updateTitle();
+      },
     );
   }
 }
