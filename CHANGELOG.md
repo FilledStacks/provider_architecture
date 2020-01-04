@@ -17,3 +17,5 @@ Replaced deprecated `builder` param with `create` in ChangeNotifierProvider
 We can now supply a listen parameter to the super class of the `ProviderWidget` to ensure it's not rebuilt when notifyListeners is called.
 
 ## [1.0.4] - Bumped provider version to ^4.0.1
+
+## [1.0.5] - Use widgets.dart instead of material.dart
