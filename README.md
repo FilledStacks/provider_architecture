@@ -127,6 +127,69 @@ class DescriptionSection extends ProviderWidget<HomeViewModel> {
 
 So what we're doing here is providing the ViewModel to the children of the builder function. The builder function itself won't retrigger when `notifyListeners` is called. Instead we will extend from `ProviderWidget` in the widgets that we want to rebuild from the ViewModel. This allows us to easily access the ViewModel in multiple widgets without a lot of repeat boilerplate code. We already extend from a `StatelessWidget` so we can change that to `ProviderWidget` and we always have a build function so we simply add the ViewModel as a parameter to that. This is the same as calling `Provider<ViewModel>.of` in every widget we want to rebuild.
 
+### Reusing Viewmodel Instance
+
+An example of how to use one viewmodel instance across the application with the help of [get_it](https://github.com/fluttercommunity/get_it).
+
+```dart
+// Registering the viewmodel inside the get_it service locator
+GetIt locator = GetIt.instance;
+
+setupServiceLocator() {
+  // Singleton of the viewmodel
+  locator.registerLazySingleton<HomeViewModel>(() => HomeViewModel());
+}
+
+// View
+class HomeView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Using the withConsumer constructor gives you the traditional viewmodel
+    // binding which will rebuild when notifyListeners is called. But instead
+    // of creating a new instance of the viewmodel, the singleton instance from
+    // the get_it locator is passed through.
+    return ViewModelProvider<HomeViewModel>.withConsumer(
+      viewModel: locator<HomeViewModel>(),
+      onModelReady: (model) => model.initialise(),
+      reuseExisting: true,
+      builder: (context, model, child) => Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            model.updateTitle();
+          },
+        ),
+        body: Center(
+          child: Text(model.title),
+        ),
+      ),
+    );
+  }
+}
+
+// ViewModel
+class HomeViewModel extends ChangeNotifier {
+  String title = 'default';
+
+  void initialise() {
+    title = 'initialised';
+    notifyListeners();
+  }
+
+  int counter = 0;
+  void updateTitle() {
+    counter++;
+    title = '$counter';
+    notifyListeners();
+  }
+}
+
+```
+
+Note that the `ViewModelProvider` constructor is called with parameter `reuseExisting: true`. This enables us to pass an existing instance of a viewmodel.
+In this example we register the viewmodel as lazy singleton using [get_it](https://github.com/fluttercommunity/get_it) and inside the `ViewModelProvider`
+constructor we simply reference the instance of the viewmodel from the locator. This way we can access the viewmodel data (in this example `counter`) across
+the application from different views.
+
 ## Provider Widget
 
 The provider widget is an implementation of a widget class that provides us with the provided value as a parameter in the build function of the widget. Above is an example of using the widget but here's another one that doesn't make use of a ViewModel. Lets say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value and inside the multiple widgets we inherit from the ProviderWidget and make use of the data.
