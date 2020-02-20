@@ -10,11 +10,13 @@ class ViewModelProvider<T extends ChangeNotifier> extends StatefulWidget {
   final Widget Function(BuildContext, T, Widget) builder;
   final T viewModel;
   final _ViewModelProviderType providerType;
+  final bool reuseExisting;
 
   ViewModelProvider.withoutConsumer({
     @required this.builder,
     @required this.viewModel,
     this.onModelReady,
+    this.reuseExisting = false,
   })  : providerType = _ViewModelProviderType.WithoutConsumer,
         staticChild = null;
 
@@ -23,6 +25,7 @@ class ViewModelProvider<T extends ChangeNotifier> extends StatefulWidget {
     @required this.builder,
     this.staticChild,
     this.onModelReady,
+    this.reuseExisting = false,
   }) : providerType = _ViewModelProviderType.WithConsumer;
 
   @override
@@ -46,12 +49,29 @@ class _ViewModelProviderState<T extends ChangeNotifier>
   @override
   Widget build(BuildContext context) {
     if (widget.providerType == _ViewModelProviderType.WithoutConsumer) {
+      if (widget.reuseExisting) {
+        return ChangeNotifierProvider.value(
+          value: _model,
+          child: widget.builder(context, _model, null),
+        );
+      }
+
       return ChangeNotifierProvider(
         create: (context) => _model,
         child: widget.builder(context, _model, null),
       );
     }
 
+    if (widget.reuseExisting) {
+      return ChangeNotifierProvider.value(
+        value: _model,
+        child: Consumer(
+          builder: widget.builder,
+          child: widget.staticChild,
+        ),
+      );
+    }
+    
     return ChangeNotifierProvider(
       create: (context) => _model,
       child: Consumer(
