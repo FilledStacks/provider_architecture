@@ -19,3 +19,7 @@ We can now supply a listen parameter to the super class of the `ProviderWidget` 
 ## [1.0.4] - Bumped provider version to ^4.0.1
 
 ## [1.0.5] - Use widgets.dart instead of material.dart
+
+## [1.0.6] - Reusable Singleton ViewModels
+
+We can now supply a reuseExisting parameter that will indicate to the provider setup to not dispose the viewmodel in use and reuse the same one whenever required.

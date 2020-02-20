@@ -1,6 +1,6 @@
 name: provider_architecture
 description: A set of widgets to help with the implementation of the FilledStacks Provider Architecture
-version: 1.0.5
+version: 1.0.6
 homepage: https://github.com/FilledStacks/provider_architecture
 
 environment:
