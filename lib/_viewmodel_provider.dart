@@ -30,7 +30,9 @@ class ViewModelProvider<T extends ChangeNotifier> extends StatefulWidget {
   /// When set to true a new ViewModel will be constructed everytime the widget is inserted.
   ///
   /// When setting this to true make sure to handle all disposing of streams if subscribed
-  /// to any in the ViewModel. [onModelReady] will fire once the viewmodel has been created/set
+  /// to any in the ViewModel. [onModelReady] will fire once the viewmodel has been created/set.
+  /// This will be used when on re-insert of the widget the viewmodel has to be constructed with
+  /// a new value.
   final bool createNewModelOnInsert;
 
   final _ViewModelProviderType providerType;
@@ -82,15 +84,21 @@ class _ViewModelProviderState<T extends ChangeNotifier>
     super.initState();
     // We want to ensure that we only build the model if it hasn't been built yet.
     if (_model == null) {
-      if (widget.viewModelBuilder != null) {
-        _model = widget.viewModelBuilder();
-      } else {
-        _model = widget.viewModel;
-      }
+      _createOrSetViewModel();
 
       if (widget.onModelReady != null) {
         widget.onModelReady(_model);
       }
+    } else if (widget.createNewModelOnInsert) {
+      _createOrSetViewModel();
+    }
+  }
+
+  void _createOrSetViewModel() {
+    if (widget.viewModelBuilder != null) {
+      _model = widget.viewModelBuilder();
+    } else {
+      _model = widget.viewModel;
     }
   }
 
