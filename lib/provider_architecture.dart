@@ -1,4 +1,6 @@
 library provider_architecture;
 
-export 'provider_widget.dart';
-export 'viewmodel_provider.dart';
+export '_provider_widget.dart';
+export '_viewmodel_provider.dart';
+export '_base_viewmodels.dart';
+export '_reactive_service.dart';
