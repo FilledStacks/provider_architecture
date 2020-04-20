@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '_reactive_service.dart';
+import '_reactive_service_mixin.dart';
 
 /// Contains ViewModel functionality for busy state management
 class BaseViewModel extends ChangeNotifier {
@@ -28,9 +28,23 @@ class BaseViewModel extends ChangeNotifier {
 
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
 class ReactiveViewModel extends BaseViewModel {
-  void reactToServices(List<ReactiveService> reactiveServices) {
-    for (var reactiveService in reactiveServices) {
-      reactiveService.addListener(() => notifyListeners());
+  List<ReactiveServiceMixin> _reactiveServices;
+  void reactToServices(List<ReactiveServiceMixin> reactiveServices) {
+    _reactiveServices = reactiveServices;
+    for (var reactiveService in _reactiveServices) {
+      reactiveService.addListener(_indicateChange);
     }
+  }
+
+  @override
+  void dispose() {
+    for (var reactiveService in _reactiveServices) {
+      reactiveService.removeListeners(_indicateChange);
+    }
+    super.dispose();
+  }
+
+  void _indicateChange() {
+    notifyListeners();
   }
 }

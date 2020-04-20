@@ -10,6 +10,7 @@ class ViewModelProvider<T extends ChangeNotifier> extends StatefulWidget {
   /// Fires once when the viewmodel is created or set for the first time
   final Function(T) onModelReady;
 
+  /// Builder function with access to the model to build UI form
   final Widget Function(BuildContext, T, Widget) builder;
 
   /// Deprecated: Use the viewModelBuilder for better ViewModel management
@@ -17,8 +18,6 @@ class ViewModelProvider<T extends ChangeNotifier> extends StatefulWidget {
 
   /// A builder function that returns the viewmodel for this widget
   final T Function() viewModelBuilder;
-
-  final _ViewModelProviderType providerType;
 
   /// Deprecated: Use the better named disposeViewModel property
   final bool reuseExisting;
@@ -33,6 +32,8 @@ class ViewModelProvider<T extends ChangeNotifier> extends StatefulWidget {
   /// When setting this to true make sure to handle all disposing of streams if subscribed
   /// to any in the ViewModel. [onModelReady] will fire once the viewmodel has been created/set
   final bool createNewModelOnInsert;
+
+  final _ViewModelProviderType providerType;
 
   /// Constructs a viewmodel provider that will not rebuild the provided widget when notifyListeners is called.
   ViewModelProvider.withoutConsumer({

@@ -1,6 +1,7 @@
 import 'package:observable_ish/observable_ish.dart';
 
-class ReactiveService {
+/// Adds functionality to easily listen to all reactive values in a service
+mixin ReactiveServiceMixin {
   List<Function> _listeners = List<Function>();
 
   void listenToReactiveValues(List<RxValue> reactiveValues) {
@@ -15,5 +16,9 @@ class ReactiveService {
 
   void addListener(void Function() listener) {
     _listeners.add(listener);
+  }
+
+  void removeListeners(void Function() listener) {
+    _listeners.remove(listener);
   }
 }
