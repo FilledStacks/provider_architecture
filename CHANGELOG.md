@@ -23,3 +23,7 @@ We can now supply a listen parameter to the super class of the `ProviderWidget` 
 ## [1.0.6] - Reusable Singleton ViewModels
 
 We can now supply a reuseExisting parameter that will indicate to the provider setup to not dispose the viewmodel in use and reuse the same one whenever required.
+
+## [1.1.0] - Added reactive services and better viewmodel management
+
+With the revision of the architecture additional reactive capabilities has been added as well as some better viewmodel management using viewModelBuilders.

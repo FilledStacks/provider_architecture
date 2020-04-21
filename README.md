@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
     // binding which will rebuild when notifyListeners is called. This is used
     // when the model does not have to be consumed by multiple different UI's.
     return ViewModelProvider<HomeViewModel>.withConsumer(
-      viewModel: HomeViewModel(),
+      viewModelBuilder: () => HomeViewModel(),
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -77,7 +77,7 @@ class HomeViewMultipleWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<HomeViewModel>.withoutConsumer(
-      viewModel: HomeViewModel(),
+      viewModelBuilder: () => HomeViewModel(),
       onModelReady: (model) => model.initialise(),
       builder: (context, model, _) => Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -153,7 +153,7 @@ class HomeView extends StatelessWidget {
     // of creating a new instance of the viewmodel, the singleton instance from
     // the get_it locator is passed through.
     return ViewModelProvider<HomeViewModel>.withConsumer(
-      viewModel: locator<HomeViewModel>(),
+      viewModelBuilder: () => locator<HomeViewModel>(),
       onModelReady: (model) => model.initialise(),
       reuseExisting: true,
       builder: (context, model, child) => Scaffold(
