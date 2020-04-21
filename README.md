@@ -1,6 +1,10 @@
-# Provider Architecture
+# Provider Architecture - Deprecated on 21 April 2020
 
-[![Pub](https://img.shields.io/pub/v/provider_architecture.svg)](https://pub.dev/packages/provider_architecture)
+## Notice
+### V2 of this package is renamed to [Stacked](https://pub.dev/packages/stacked)
+Stacked is the name of the architecture that was originally inspired by MVVM for the first implementation. It has some name changes but everything else is the same so a migration would be painless. There are multiple things that it improves on. The two main things are ViewModel management (creating only when required, not creating it everytime it's rebuilt), responsive services which allows viewmodels to register for service changes. A series will be released that covers the entire architecture stack used for production development along with stacked.
+
+## End of notice
 
 This package contains base widgets that can be used to implement the MvvmStyle provider architecture as laid out by [FilledStacks](https://www.youtube.com/filledstacks).
 
