@@ -27,3 +27,6 @@ We can now supply a reuseExisting parameter that will indicate to the provider s
 ## [1.1.0] - Added reactive services and better viewmodel management
 
 With the revision of the architecture additional reactive capabilities has been added as well as some better viewmodel management using viewModelBuilders.
+
+## [1.1.1] - Fixed disposeViewModel bug 
+## [1.1.1+1] - Added Migration Docs

@@ -105,7 +105,9 @@ class _ViewModelProviderState<T extends ChangeNotifier>
   @override
   Widget build(BuildContext context) {
     if (widget.providerType == _ViewModelProviderType.WithoutConsumer) {
-      if (widget.reuseExisting || widget.disposeViewModel) {
+      // If we want to reuseExisting or if the dev does not want to dispose the viewmodel then
+      // we use the .value constructor
+      if (widget.reuseExisting || !widget.disposeViewModel) {
         return ChangeNotifierProvider.value(
           value: _model,
           child: widget.builder(context, _model, widget.staticChild),
@@ -118,7 +120,9 @@ class _ViewModelProviderState<T extends ChangeNotifier>
       );
     }
 
-    if (widget.reuseExisting || widget.disposeViewModel) {
+    if (widget.reuseExisting || !widget.disposeViewModel) {
+      // If we want to reuseExisting or if the dev does not want to dispose the viewmodel then
+      // we use the .value constructor
       return ChangeNotifierProvider.value(
         value: _model,
         child: Consumer(

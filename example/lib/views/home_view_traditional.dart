@@ -9,7 +9,7 @@ class HomeViewTraditional extends StatelessWidget {
     // binding which will rebuild when notifyListeners is called. This is used
     // when the model does not have to be consumed by multiple different UI's.
     return ViewModelProvider<HomeViewModel>.withConsumer(
-      viewModel: HomeViewModel(),
+      viewModelBuilder: () => HomeViewModel(),
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) => Scaffold(
         floatingActionButton: UpdateTitleButton(),
